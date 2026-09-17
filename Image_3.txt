@@ -1,0 +1,9 @@
+prompt = (
+    "painting of an abandonned car, desolate atmosphere, dried flowers, winter, icy road, winter horse, "
+    "vivid colors, detailed, art station, highly detailed, smooth, sharp focus, illustration, global illumination, "
+)
+
+negative_prompt = (
+    "lowres, watermark, text, deformed faces, extra limbs, "
+    "bad anatomy, oversaturated"
+)
