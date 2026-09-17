@@ -1,9 +1,21 @@
 prompt = (
-    "painting of an abandonned car, desolate atmosphere, dried flowers, winter, icy road, winter horse, "
+    "painting of an abandonned car, desolate atmosphere, dried oversize flowers, winter, icy road, birds,"
     "vivid colors, detailed, art station, highly detailed, smooth, sharp focus, illustration, global illumination, "
+    "cut-out paper textures, layered photomontage composition, newspaper elements, "
 )
 
 negative_prompt = (
-    "lowres, watermark, text, deformed faces, extra limbs, "
-    "bad anatomy, oversaturated"
-)
+    "lowres, watermark, "
+    "oversaturated, "
+) #
+
+model_id = "runwayml/stable-diffusion-v1-5" # Reverting to a smaller model as requested
+pipe = StableDiffusionPipeline.from_pretrained(model_id, safety_checker=None)
+pipe = pipe.to(device)
+
+image = pipe(
+    prompt,
+    negative_prompt=negative_prompt,
+    generator=torch.Generator(device).manual_seed(110419), # change the seed!
+    num_inference_steps=20, guidance_scale=7.0
+).images[0]
