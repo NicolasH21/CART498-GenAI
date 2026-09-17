@@ -4,8 +4,6 @@
 
 - assignment_1.ipynb
 
-- self-reflection essay.pdf
-
 - image_1.png
   
   - prompt_1.txt
@@ -17,4 +15,6 @@
 - image_3.png
   
   - prompt_3.txt
+ 
+- self-reflection essay.pdf
   
