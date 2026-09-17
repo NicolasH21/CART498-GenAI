@@ -7,14 +7,14 @@
 - self-reflection essay.pdf
 
 - image_1.png
-- 
-- prompt_1.txt
+  
+  - prompt_1.txt
 
 - image_2.png
-- 
-- prompt_2.txt
+  
+  - prompt_2.txt
   
 - image_3.png
-- 
-- prompt_3.txt
+  
+  - prompt_3.txt
   
