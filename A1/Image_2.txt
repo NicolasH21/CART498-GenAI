@@ -1,9 +1,23 @@
 prompt = (
-    "painting of a lone car, desolate atmosphere, dried flowers, "
+    "drawing of a lone car, rusted car, desolate atmosphere, dried oversize plants, birds,"
     "vivid colors, detailed, art station, highly detailed, smooth, sharp focus, illustration, global illumination, "
+    "cut-out paper textures, newspaper elements, "
 )
 
 negative_prompt = (
-    "lowres, watermark, text, deformed faces, extra limbs, "
-    "bad anatomy, oversaturated"
-)
+    "lowres, watermark, text "
+    "oversaturated, "
+) # This is what the model steers away from.
+
+model_id = "runwayml/stable-diffusion-v1-5" # Reverting to a smaller model as requested
+pipe = StableDiffusionPipeline.from_pretrained(model_id, safety_checker=None)
+pipe = pipe.to(device)
+
+image = pipe(
+    prompt,
+    negative_prompt=negative_prompt,
+    generator=torch.Generator(device).manual_seed(110419), # change the seed!
+    num_inference_steps=20, guidance_scale=7.0
+).images[0]
+
+image
