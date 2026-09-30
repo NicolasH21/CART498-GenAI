@@ -1,0 +1,96 @@
+from transformers import AutoTokenizer, AutoModelForCausalLM
+import torch
+
+# Cache tokenizer and model to avoid reloading multiple times
+_seventh_token_tokenizer_cache = {}
+_seventh_token_model_cache = {}
+
+def get_seventh_token_prediction_gpt2(prompt: str) -> str:
+    """
+    Predicts the 7th most probable next token using the GPT-2 model for a given prompt.
+    Handles empty prompts by using the EOS token as a dummy start for sequence generation.
+    """
+    model_name = "openai-community/gpt2"
+    if model_name not in _seventh_token_tokenizer_cache:
+        _seventh_token_tokenizer_cache[model_name] = AutoTokenizer.from_pretrained(model_name)
+        _seventh_token_model_cache[model_name] = AutoModelForCausalLM.from_pretrained(model_name)
+
+    tokenizer = _seventh_token_tokenizer_cache[model_name]
+    model = _seventh_token_model_cache[model_name]
+
+    if not prompt: # Handle empty prompt by using EOS token as a dummy start for GPT-2
+        input_ids = torch.tensor([[tokenizer.eos_token_id]])
+    else:
+        # Ensure the prompt is properly tokenized for prediction
+        input_ids = tokenizer.encode(prompt, return_tensors="pt")
+
+    with torch.no_grad():
+        outputs = model(input_ids)
+        logits = outputs.logits
+
+    last_token_logits = logits[0, -1, :]
+    probabilities = torch.softmax(last_token_logits, dim=-1)
+    # Get at least 7 tokens if available
+    top_k_probs, top_k_indices = torch.topk(probabilities, min(probabilities.numel(), 7))
+
+    if len(top_k_indices) >= 7:
+        seventh_token_id = top_k_indices[6]
+        seventh_token = tokenizer.decode(seventh_token_id)
+        return seventh_token
+    else:
+        # Fallback if fewer than 7 predictions are available (unlikely for GPT-2)
+        return ""
+
+# Define arr directly in this cell to ensure it's available
+arr = [
+    "One must have a mind of winter", "To regard the frost and the boughs", "Of the pine-trees crusted with snow;",
+    "And have been cold a long time", "To behold the junipers shagged with ice", "The spruces rough in the distant glitter",
+    "Of the January sun; and not to think", "Of any misery in the sound of the wind", "In the sound of a few leaves",
+    "Which is the sound of the land", "Full of the same wind", "That is blowing in the same bare place",
+    "For the listener, who listens in the snow", "And, nothing himself, beholds",
+    "Nothing that is not there and the nothing that is"
+]
+
+# Load the GPT-2 tokenizer for word splitting (it's cached in the helper function too)
+tokenizer_for_splitting = AutoTokenizer.from_pretrained("openai-community/gpt2")
+
+print("--- Replacing last words with 7th-highest probability GPT-2 tokens ---")
+
+# Initialize modified_arr as an empty list
+modified_arr = []
+for i, line in enumerate(arr):
+    words = line.split()
+
+    if not words: # Handle empty lines
+        modified_arr.append('')
+        print(f"Line {i+1}: Original: '{line}' -> Modified: ''")
+        continue
+
+    if len(words) > 1:
+        # The prompt for the model is all words except the last one
+        prompt_for_model = " ".join(words[:-1])
+    else:
+        # If the line has only one word, the prompt for prediction is empty
+        prompt_for_model = ""
+
+    # Get the 7th most probable next token
+    seventh_token = get_seventh_token_prediction_gpt2(prompt_for_model)
+
+    if seventh_token is not None:
+        # GPT-2 tokens often have a leading space (e.g., 'Ġword').
+        # When replacing, we want to ensure proper spacing.
+        predicted_word = seventh_token.replace('Ġ', ' ').strip()
+        if not prompt_for_model: # If the original line had only one word
+            new_line = predicted_word
+        else:
+            # Reconstruct the line with the new last word
+            new_line = " ".join(words[:-1]) + " " + predicted_word
+    else:
+        new_line = line # Fallback to original line if no token could be predicted
+
+    modified_arr.append(new_line)
+    print(f"Line {i+1}: Original: '{line}' -> Modified: '{new_line}'")
+
+print("\n--- Modified poem ---")
+for line in modified_arr:
+    print(line)
