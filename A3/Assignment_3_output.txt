@@ -1,29 +1,56 @@
+Starting AI calculator bot.
+Enter 'exit' at any time to stop.
+
 Iteration 1: Enter a mathematical expression to calculate: 5^5
   Expression: 5^5
   AI Result: 3125.0
-  Correct Result: 0
-  Status: Wow, how do humans deal with math ?
-
-Iteration 2: Enter a mathematical expression to calculate: 5+5
-  Expression: 5+5
-  AI Result: 10.0
-  Correct Result: 10
+  Correct Result: 3125
   Status: Ha ! AI got the correct answer!
 
-Iteration 3: Enter a mathematical expression to calculate: 6^6
-  Expression: 6^6
-  AI Result: 46656.0
-  Correct Result: 0
-  Status: Oh no, another error... I guess I suck at math.
-
-Iteration 4: Enter a mathematical expression to calculate: 8*8
+Iteration 2: Enter a mathematical expression to calculate: 8*8
   Expression: 8*8
   AI Result: 64.0
   Correct Result: 64
   Status: Ha ! AI got the correct answer!
 
-Iteration 5: Enter a mathematical expression to calculate: 8^8
+Iteration 3: Enter a mathematical expression to calculate: 8^8
   Expression: 8^8
   AI Result: 16777216.0
-  Correct Result: 0
+  Correct Result: 16777216
+  Status: Ha ! AI got the correct answer!
+
+Iteration 4: Enter a mathematical expression to calculate: 125^125
+  Expression: 125^125
+  AI did not return a valid number: 'ERROR'
+
+Iteration 5: Enter a mathematical expression to calculate: 15^15
+  Expression: 15^15
+  AI Result: 4.378938903808594e+17
+  Correct Result: 437893890380859375
+  Status: Ha ! AI got the correct answer!
+
+Iteration 6: Enter a mathematical expression to calculate: 25^25
+  Expression: 25^25
+  AI Result: 8.881784197001253e+34
+  Correct Result: 88817841970012523233890533447265625
+  Status: Ha ! AI got the correct answer!
+
+Iteration 7: Enter a mathematical expression to calculate: 25^25+25*25
+  Expression: 25^25+25*25
+  AI Result: 6.25e+24
+  Correct Result: 88817841970012523233890533447266250
+  Status: Oh no, another error... I guess I suck at math.
+
+Iteration 8: Enter a mathematical expression to calculate: 8^8+8*11
+  Expression: 8^8+8*11
+  AI Result: 2097152.0
+  Correct Result: 16777304
   Status: I give up. Apparently, calculating is not my strength.
+
+Iteration 9: Enter a mathematical expression to calculate: 5^5+5*25
+  Expression: 5^5+5*25
+  AI Result: 650.0
+  Correct Result: 3250
+  Status: I give up. Apparently, calculating is not my strength.
+
+Iteration 10: Enter a mathematical expression to calculate: 
