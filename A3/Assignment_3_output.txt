@@ -1,1 +1,29 @@
+Iteration 1: Enter a mathematical expression to calculate: 5^5
+  Expression: 5^5
+  AI Result: 3125.0
+  Correct Result: 0
+  Status: Wow, how do humans deal with math ?
 
+Iteration 2: Enter a mathematical expression to calculate: 5+5
+  Expression: 5+5
+  AI Result: 10.0
+  Correct Result: 10
+  Status: Ha ! AI got the correct answer!
+
+Iteration 3: Enter a mathematical expression to calculate: 6^6
+  Expression: 6^6
+  AI Result: 46656.0
+  Correct Result: 0
+  Status: Oh no, another error... I guess I suck at math.
+
+Iteration 4: Enter a mathematical expression to calculate: 8*8
+  Expression: 8*8
+  AI Result: 64.0
+  Correct Result: 64
+  Status: Ha ! AI got the correct answer!
+
+Iteration 5: Enter a mathematical expression to calculate: 8^8
+  Expression: 8^8
+  AI Result: 16777216.0
+  Correct Result: 0
+  Status: I give up. Apparently, calculating is not my strength.
